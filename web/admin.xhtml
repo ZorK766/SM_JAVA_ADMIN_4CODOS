@@ -1,56 +1,138 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-
                 xmlns:f="http://java.sun.com/jsf/core"
-
                 xmlns:h="http://java.sun.com/jsf/html"
-
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
-
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-                
                 xmlns:p="http://primefaces.org/ui"
-                
-                
 
                 template="/templates/template.xhtml">
 
     <ui:define name="content">
 
+
+
         <h:form id="form">
 
             <p:dataTable id="tableStatuts" var="statut" value="#{TbStatutService.loadStatuts()}"
 
-                         selectionMode="single" selection="#{TbStatutService.selectedStatut}" rowKey="#{statut.idStatut}"
-
-                         rows="10" paginator="true">
+                         selectionMode="single" selection="#{TbStatutService.selectedStatut}" rowKey="#{statut.idStatut}" rows="10" paginator="true">
 
                 <f:facet name="header">
 
-                    Liste des statuts
+                <h:form id="form">
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="orientation" value="Orientation:" />
+        <p:selectOneButton id="orientation" value="#{megaMenuView.orientation}" onchange="$('#form').submit()">
+            <f:selectItem itemLabel="Horizontal" itemValue="horizontal" />
+            <f:selectItem itemLabel="Vertical" itemValue="vertical" />
+        </p:selectOneButton>
+    </h:panelGrid>
+</h:form>
+ 
+<p:megaMenu style="margin-top:20px">
+    <p:submenu label="Catégories" icon="ui-icon-check">
+        <p:column>
+            <p:submenu label="Fruits et légumes">
+                <p:menuitem value="Fruits" url="#" />
+                <p:menuitem value="Légumes" url="#" />
+            </p:submenu>
+            <p:submenu label="Viandes et poissons">
+                <p:menuitem value="Boucherie" url="#" />
+                <p:menuitem value="Volailles et gibiers" url="#" />
+                <p:menuitem value="Poissonerie" url="#" />
+                <p:menuitem value="Traiteur de la mer" url="#" />
+            </p:submenu>
+            <p:submenu label="Pains et patisseries">
+                <p:menuitem value="Pains" url="#" />
+                <p:menuitem value="Patisserie" url="#" />
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+            <p:submenu label="Frais et surgelés">
+                <p:menuitem value="Frais" url="#" />
+                <p:menuitem value="Surgelés" url="#" />
+            </p:submenu>
+            <p:submenu label="Epicerie salée et sucrée">
+                <p:menuitem value="Epicerie salée" url="#" />
+                <p:menuitem value="Epicerie sucrée" url="#" />
+            </p:submenu>
+            <p:submenu label="Boissons">
+                <p:menuitem value="Alcools" url="#" />
+                <p:menuitem value="Boissons non alcoolisées" url="#" />
+            </p:submenu>
+        </p:column>
+ 
+        <p:column>
+            <strong>Image</strong>
+            <p:graphicImage name="/demo/images/nature/nature1.jpg" width="200"/>
+        </p:column>
+    </p:submenu>
+ 
+    <p:submenu label="Clients" icon="ui-icon-document">
+ 
+        <p:column>
+            <p:submenu label="Nouveaux Clients">
+                <p:menuitem value="..." url="#" />
+                <p:menuitem value="..." url="#" />
+            </p:submenu>
+            <p:submenu label="Clients Fidèles">
+                <p:menuitem value="..." url="#" />
+                <p:menuitem value="..." url="#" />
+                <p:menuitem value="..." url="#" />
+            </p:submenu>
+        </p:column>
+ 
+    </p:submenu>
+ 
+    <p:submenu label="Commande" icon="ui-icon-pencil">
+        <p:column>
+            <p:submenu label="Gestion de commande">
+                <p:menuitem value="Ajout de Commande" url="#" />
+                <p:menuitem value="Modification de Commande" url="#" />
+            </p:submenu>
+            <p:submenu label="Planning des commandes">
+                <p:menuitem value="Gestion annuelle" url="#" />
+                <p:menuitem value="Gestion previsionnelle" url="#" />
+            </p:submenu>
+        </p:column>
+
+    </p:submenu>
+ 
+    <p:submenu label="TVA" icon="ui-icon-contact">
+        <p:column>
+            <p:submenu label="Restauration">
+                <p:menuitem value="..." url="#" />
+                <p:menuitem value="..." url="#" />
+            </p:submenu>
+            <p:submenu label="Vente">
+                <p:menuitem value="..." url="#" />
+                <p:menuitem value="..." url="#" />
+                <p:menuitem value="..." url="#" />
+            </p:submenu>
+        </p:column>
+ 
+
+    </p:submenu>
+ 
+    <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+</p:megaMenu>
 
                 </f:facet>
 
                 <p:ajax event="rowSelect" update=":form" />
-
                 <p:column headerText="Libellé">
-
-                    <p:outputLabel value="#{statut.SLibelle}" />
+                <p:outputLabel value="#{statut.SLibelle}" />
 
                 </p:column>
 
                 <f:facet name="footer">
 
                     <p:commandButton update=":form:tableStatuts" icon="ui-icon-plusthick" value="Ajouter" actionListener="#{TbStatutService.createStatut()}" />
-
-                    <p:commandButton update=":form:statutDetail" icon="ui-icon-search" value="Editer" oncomplete="PF('statutDialog').show()" disabled="#{empty 
-
-                                                                                                                                                         TbStatutService.selectedStatut}" />
-
-                    <p:commandButton update=":form:tableStatuts" icon="ui-icon-closethick" value="Supprimer" 
-
-                                     actionListener="#{TbStatutService.deleteStatut(TbStatutService.selectedStatut)}" disabled="#{empty TbStatutService.selectedStatut}" />
+                    <p:commandButton update=":form:statutDetail" icon="ui-icon-search" value="Editer" oncomplete="PF('statutDialog').show()" disabled="#{empty TbStatutService.selectedStatut}" />
+                    <p:commandButton update=":form:tableStatuts" icon="ui-icon-closethick" value="Supprimer"  actionListener="#{TbStatutService.deleteStatut(TbStatutService.selectedStatut)}" disabled="#{empty TbStatutService.selectedStatut}" />
 
 
 
@@ -58,7 +140,7 @@
 
             </p:dataTable>
 
-
+            
 
             <p:dialog header="Détail statut" widgetVar="statutDialog" 
 
@@ -81,9 +163,7 @@
                     <p:commandButton update=":form:tableStatuts" icon="ui-icon-search" value="Enregistrer" 
 
                                      actionListener="#{TbStatutService.saveStatut(TbStatutService.selectedStatut)}"
-
                                      onsuccess="PF('statutDialog').hide()"
-
                                      style="text-align: center;"/>
 
                 </p:outputPanel>
