@@ -1,15 +1,10 @@
 package greta.speedymarket.dao;
 
 import greta.speedymarket.model.TbStatut;
-
 import greta.speedymarket.services.HibernateUtil;
-
 import java.util.ArrayList;
-
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
-
 import org.hibernate.Session;
 
 @ManagedBean(name = "TbStatutDAO")
