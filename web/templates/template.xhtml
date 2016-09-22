@@ -3,43 +3,35 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-
       xmlns:h="http://java.sun.com/jsf/html"
-
       xmlns:f="http://java.sun.com/jsf/core"
-
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
 
         <title>Speedy Market Admin</title>
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
-
-
         <h:outputStylesheet library="css" name="style.css" />
-
-
-
     </h:head>
 
     <h:body>
-
         <div id="header">
-
             <div id="headerContent">
-
                 <h2>Speedy Market</h2>
-
             </div>
 
+ 
         </div>
 
+        
+        
         <h:panelGroup id="content" layout="block">
-
+            <p:stack icon="/resources/images/statuts.png" expanded="true">
+                    <p:menuitem value="Statuts" icon="/resources/images/statuts.png" url="statuts.jsf"/>
+                </p:stack>
+            
             <ui:insert name="content">Main Content</ui:insert>
-
         </h:panelGroup>
 
         <div id="footer">
