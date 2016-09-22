@@ -76,6 +76,11 @@ public class TbCategorie  implements java.io.Serializable {
         this.tbCategories = tbCategories;
     }
 
+    @Override
+    public String toString() {
+        return this.CLibelle; //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
 
 
