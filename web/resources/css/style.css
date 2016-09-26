@@ -16,7 +16,7 @@ body {
 
     color: #444444;
 
-    background-color: red; 
+    background-color: green; 
 
     background-repeat: repeat;
 
@@ -130,4 +130,10 @@ body {
 
     border: 1px solid black;
 
+}
+#tableau{
+border:1px; 
+cellpadding:10px; 
+cellspacing:10px;
+width:100%;
 }

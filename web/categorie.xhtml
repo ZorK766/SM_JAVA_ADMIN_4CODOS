@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml">
+
+    <ui:define name="content">
+
+        <h:head>
+            <title>Gestion des Catégories</title>
+            <h:outputStylesheet library="css" name="style.css" />
+        </h:head>
+        <h:body>
+
+            <p:dataTable id="categorie" var="Catégorie" value="#{TbCategorieService.loadCategories()}">
+        
+        <p:column headerText="Id">
+            <h:outputText value="#{categorie.id_categorie}" />
+        </p:column>
+        <p:column headerText="Year">
+            <h:outputText value="#{categorie.c_libelle }" />
+        </p:column>
+        <p:column headerText="Brand">
+            <h:outputText value="#{categorie.id_categorie_mere }" />
+        </p:column>
+        <p:column headerText="Color">
+            <h:outputText value="#{categorie.url_image}" />
+        </p:column>
+        <p:column style="width:32px;text-align: center">
+             <p:commandButton update=":form:categorieDetail" oncomplete="PF('categorieDialog').show()" title="Oui-oui">
+                <f:setPropertyActionListener value="#{categorie}" target="#{dtSelectionView.setSelectedCategorie}" />
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+
+
+
+
+        </h:body>
+    </ui:define>
+
+
+</ui:composition>
