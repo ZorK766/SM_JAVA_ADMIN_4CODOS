@@ -13,19 +13,12 @@
 
         <h:form id="form">
 
-            <p:dataTable id="tableStatuts" var="statut" value="#{TbStatutService.loadStatuts()}"
-
-                         selectionMode="single" selection="#{TbStatutService.selectedStatut}" rowKey="#{statut.idStatut}" rows="10" paginator="true">
+            <p:dataTable id="tableStatuts" var="statut" value="#{TbStatutService.loadStatuts()}" selectionMode="single" selection="#{TbStatutService.selectedStatut}" rowKey="#{statut.idStatut}" rows="10" paginator="true">
 
                 <f:facet name="header">
 
 
-                    
-
                     <h:form>          
-
-
-
 
 
 
