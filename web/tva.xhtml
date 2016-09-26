@@ -11,7 +11,69 @@
 
     <ui:define name="content">
 
-     
+        <h:form id="form">
+
+            <p:dataTable id="tableTvas" var="tva" value="#{TbTvaService.loadTvas()}" selectionMode="single" selection="#{TbTvaService.selectedTva}" rowKey="#{tva.idTva}" rows="10" paginator="true">
+
+                <f:facet name="header">
+
+
+                    <h:form>          
+
+
+
+                    </h:form>
+
+
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form" />
+                <p:column headerText="Libellé">
+                    <p:outputLabel value="#{tva.TLibelle}" />
+
+                </p:column>
+
+                <f:facet name="footer">
+
+                    <p:commandButton update=":form:tableTvas" icon="ui-icon-plusthick" value="Ajouter" actionListener="#{TbTvaService.createTva()}" />
+                    <p:commandButton update=":form:tvaDetail" icon="ui-icon-search" value="Editer" oncomplete="PF('tvaDialog').show()" disabled="#{empty TbTvaService.selectedTva}" />
+                    <p:commandButton update=":form:tableTvas" icon="ui-icon-closethick" value="Supprimer"  actionListener="#{TbTvaService.deleteTva(TbTvaService.selectedTva)}" disabled="#{empty TbTvaService.selectedTva}" />
+
+
+
+                </f:facet>
+
+            </p:dataTable>
+
+<p:dialog header="Détail tva" widgetVar="tvaDialog" 
+
+                      showEffect="fade" hideEffect="fade" resizable="true" height="100" width="450" >
+
+                <p:outputPanel id="tvaDetail" >
+
+                    <p:panelGrid columns="2" rendered="#{not empty TbTvaService.selectedTva}" columnClasses="label,value"> 
+
+                        <h:outputText value="Libellé" />
+
+                        <h:inputText value="#{TbTvaService.selectedTva.SLibelle}" style="width: 300px;" />
+
+                    </p:panelGrid>
+
+                    <br/>
+
+                    <p:commandButton update=":form:tableTvas" icon="ui-icon-search" value="Enregistrer" 
+
+                                     actionListener="#{TbTvaService.saveTva(TbTvaService.selectedTva)}"
+                                     onsuccess="PF('tvaDialog').hide()"
+                                     style="text-align: center;"/>
+
+                </p:outputPanel>
+
+            </p:dialog>
+
+
+
+        </h:form>
         
         
     </ui:define>

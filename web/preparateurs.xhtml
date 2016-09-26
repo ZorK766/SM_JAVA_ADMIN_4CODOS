@@ -1,4 +1,5 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -10,7 +11,69 @@
 
     <ui:define name="content">
 
-        
+        <h:form id="form">
+
+            <p:dataTable id="tablePreparateurs" var="preparateur" value="#{TbPreparateurService.loadPreparateurs()}" selectionMode="single" selection="#{TbPreparateurService.selectedPreparateur}" rowKey="#{preparateur.idPersonne}" rows="10" paginator="true">
+
+                <f:facet name="header">
+
+
+                    <h:form>          
+
+
+
+                    </h:form>
+
+
+                </f:facet>
+
+                <p:ajax event="rowSelect" update=":form" />
+                <p:column headerText="Libellé">
+                    <p:outputLabel value="#{preparateur.SLibelle}" />
+
+                </p:column>
+
+                <f:facet name="footer">
+
+                    <p:commandButton update=":form:tablePreparateurs" icon="ui-icon-plusthick" value="Ajouter" actionListener="#{TbPreparateurService.createPreparateur()}" />
+                    <p:commandButton update=":form:preparateurDetail" icon="ui-icon-search" value="Editer" oncomplete="PF('preparateurDialog').show()" disabled="#{empty TbPreparateurService.selectedPreparateur}" />
+                    <p:commandButton update=":form:tablePreparateurs" icon="ui-icon-closethick" value="Supprimer"  actionListener="#{TbPreparateurService.deletePreparateur(TbPreparateurService.selectedPreparateur)}" disabled="#{empty TbPreparateurService.selectedPreparateur}" />
+
+
+
+                </f:facet>
+
+            </p:dataTable>
+
+<p:dialog header="Détail preparateur" widgetVar="preparateurDialog" 
+
+                      showEffect="fade" hideEffect="fade" resizable="true" height="100" width="450" >
+
+                <p:outputPanel id="preparateurDetail" >
+
+                    <p:panelGrid columns="2" rendered="#{not empty TbPreparateurService.selectedPreparateur}" columnClasses="label,value"> 
+
+                        <h:outputText value="Libellé" />
+
+                        <h:inputText value="#{TbPreparateurService.selectedPreparateur.SLibelle}" style="width: 300px;" />
+
+                    </p:panelGrid>
+
+                    <br/>
+
+                    <p:commandButton update=":form:tablePreparateurs" icon="ui-icon-search" value="Enregistrer" 
+
+                                     actionListener="#{TbPreparateurService.savePreparateur(TbPreparateurService.selectedPreparateur)}"
+                                     onsuccess="PF('preparateurDialog').hide()"
+                                     style="text-align: center;"/>
+
+                </p:outputPanel>
+
+            </p:dialog>
+
+
+
+        </h:form>
         
         
     </ui:define>
