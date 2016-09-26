@@ -1,132 +1,145 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      xmlns:p="http://primefaces.org/ui"
-      template="/templates/template.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/template.xhtml">
 
-    <h:head>
-        <title>Gestion des Articles</title>
-        <h:outputStylesheet library="css" name="style.css" />
-    </h:head>
-    <h:body>
-        <h:form>         
+    <ui:define name="content">
 
-
-            <!--
-            <p:dataTable id="basicDT" var="article" value="#{TbArticleService.loadArticles()}" rowKey="#{article.idArticle}" rows="15" paginator="true"  sortMode="multiple">
-                <f:facet name="header">
-                    Table Article
-                </f:facet>
-
-                <p:column headerText="Designation">
-                    <h:outputText value="#{article.ADesignation}" />
-                </p:column>
-                <p:column headerText="Id">
-                    <h:outputText value="#{article.idArticle}" />
-                </p:column>
-                <p:column headerText="Catégorie">
-                    <h:outputText value="#{article.tbCategorie}" />
-                </p:column>
-                <p:column headerText="TVA">
-                    <h:outputText value="#{article.tbTva.TTaux}" />
-                </p:column>
-                <p:column headerText="Prix Hors taxe">
-                    <h:outputText value="#{article.APht}" />
-                </p:column>
-                <p:column headerText="Description">
-                    <h:outputText value="#{article.ADescription}" />
-                </p:column>
-                <p:column headerText="Quantité">
-                    <h:outputText value="#{article.AQuantiteStock}" />
-                </p:column>
-                <p:column headerText="Visible">
-                    <h:outputText value="#{article.AVisible}" />
-                </p:column>
+        <h:head>
+            <title>Gestion des Articles</title>
+            <h:outputStylesheet library="css" name="style.css" />
+        </h:head>
+        <h:body>
 
 
 
-            </p:dataTable>  -->
+            <h:form>         
 
-
-
-            <p:dataTable>
-
-                <f:facet name="header">
-
-                    Table Article
-                    <p:outputPanel>
-                        <h:outputText value="Rechercher un article :" />
-                        <p:inputText id="basicDT" onkeyup="PF('articlesTable').filter()" style="width:150px" placeholder="Entrer votre recherche"/>
-                    </p:outputPanel>
-                </f:facet>
-
-                <p:column filterBy="#{article.ADesignation}" headerText="Désignation"  filterMatchMode="contains">
-                    <h:outputText value="#{article.ADesignation}" />
-                </p:column>
-
-                <p:column filterBy="#{article.idArticle}" headerText="Identifiant"  filterMatchMode="lte">
-                    <h:outputText value="#{article.idArticle}" />
-                </p:column>
-
-                <p:column filterBy="#{article.tbCategorie}" headerText="Categorie" filterMatchMode="exact">
-                    <f:facet name="filter">
-                        <p:selectOneMenu onchange="PF('articlesTable').filter()" >
-                            <f:selectItem itemLabel="Choisissez une catégorie : " itemValue="#{null}" noSelectionOption="true" />
-                            <f:selectItems value="#{article.tbCategorie}" />
-                        </p:selectOneMenu>
+                <!--
+                <p:dataTable id="basicDT" var="article" value="#{TbArticleService.loadArticles()}" rowKey="#{article.idArticle}" rows="15" paginator="true"  sortMode="multiple">
+                    <f:facet name="header">
+                        Table Article
                     </f:facet>
-                    <h:outputText value="#{article.tbCategorie}" />
-                </p:column>
-
-                <p:column filterBy="#{article.ADescription}" headerText="Description">
-                    <h:outputText value="#{article.ADescription}"/>
-                </p:column>
-
-                <p:column filterBy="#{article.tbTva.TTaux}" headerText="TVA"  filterMatchMode="in">
-                    <h:outputText value="#{article.article.tbTva.TTaux}">
-                        <f:convertNumber currencySymbol="€" type="currency"/>
-                    </h:outputText>
-                </p:column>
-
-                <p:column filterBy="#{article.APht}" headerText="Prix Hors Taxe" filterMatchMode="equals">
-                    <h:outputText value="#{article.article.APht}">
-                        <f:convertNumber currencySymbol="€" type="currency"/>
-                    </h:outputText>
-                </p:column>
-
-
-                <p:column filterBy="#{article.AQuantiteStock}" headerText="Quantité en stock">
-                    <h:outputText value="#{article.AQuantiteStock}"/>
-                </p:column>
-
-                <p:column filterBy="#{article.AVisible}" headerText="Visibilite">
-                    <h:outputText value="#{article.AVisible}" />
-                </p:column>
-
-            </p:dataTable>
-
-
-            <f:facet name="footer">
-
-                <p:commandButton update=":form:tableArticle" icon="ui-icon-plusthick" value="Ajouter" actionListener="#{TbArticleService.createArticle}" />
-                <p:commandButton update=":form:articleDetail" icon="ui-icon-search" value="Editer" oncomplete="PF('articleDialog').show()" disabled="#{empty TbArticleService.saveArticle}" />
-                <p:commandButton update=":form:tableArticle" icon="ui-icon-closethick" value="Supprimer" actionListener="#{TbArticleService.deleteArticle(TbArticleService.setSelectedArticle)}" disabled="#{empty TbArticleService.setSelectedArticle}" />
+    
+                    <p:column headerText="Designation">
+                        <h:outputText value="#{article.ADesignation}" />
+                    </p:column>
+                    <p:column headerText="Id">
+                        <h:outputText value="#{article.idArticle}" />
+                    </p:column>
+                    <p:column headerText="Catégorie">
+                        <h:outputText value="#{article.tbCategorie}" />
+                    </p:column>
+                    <p:column headerText="TVA">
+                        <h:outputText value="#{article.tbTva.TTaux}" />
+                    </p:column>
+                    <p:column headerText="Prix Hors taxe">
+                        <h:outputText value="#{article.APht}" />
+                    </p:column>
+                    <p:column headerText="Description">
+                        <h:outputText value="#{article.ADescription}" />
+                    </p:column>
+                    <p:column headerText="Quantité">
+                        <h:outputText value="#{article.AQuantiteStock}" />
+                    </p:column>
+                    <p:column headerText="Visible">
+                        <h:outputText value="#{article.AVisible}" />
+                    </p:column>
+    
+    
+    
+                </p:dataTable>  -->
 
 
 
-            </f:facet>
+                <p:dataTable id="basicDT" var="article" value="#{TbArticleService.loadArticles()}" rowKey="#{article.idArticle}" rows="15" paginator="true"  sortMode="multiple">
+
+                    <f:facet name="header">
+
+                        Table Article
+                        <p:outputPanel>
+                            <h:outputText value="Rechercher un article :" />
+                            <p:inputText id="basicDT" onkeyup="PF('basicDT').filter()" style="width:150px" placeholder="Entrer votre recherche"/>
+                        </p:outputPanel>
+                    </f:facet>
+
+                    <p:column filterBy="#{article.ADesignation}" headerText="Désignation"  filterMatchMode="contains">
+                        <h:outputText value="#{article.ADesignation}" />
+                    </p:column>
+
+                    <p:column filterBy="#{article.idArticle}" headerText="Identifiant"  filterMatchMode="lte">
+                        <h:outputText value="#{article.idArticle}" />
+                    </p:column>
+
+                    <p:column filterBy="#{article.tbCategorie}" headerText="Categorie" filterMatchMode="exact">
+                        <f:facet name="filter">
+                            <p:selectOneMenu onchange="PF('articlesTable').filter()" >
+                                <f:selectItem itemLabel="Choisissez une catégorie : " itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{article.tbCategorie}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                        <h:outputText value="#{article.tbCategorie}" />
+                    </p:column>
+
+                    <p:column filterBy="#{article.ADescription}" headerText="Description">
+                        <h:outputText value="#{article.ADescription}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{article.tbTva.TTaux}" headerText="TVA"  filterMatchMode="in">
+                        <h:outputText value="#{article.tbTva.TTaux}">
+                            <f:convertNumber currencySymbol="€" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column filterBy="#{article.APht}" headerText="Prix Hors Taxe" filterMatchMode="equals">
+                        <h:outputText value="#{article.APht}">
+                            <f:convertNumber currencySymbol="€" type="currency"/>
+                        </h:outputText>
+                    </p:column>
+
+
+                    <p:column filterBy="#{article.AQuantiteStock}" headerText="Quantité en stock">
+                        <h:outputText value="#{article.AQuantiteStock}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{article.AVisible}" headerText="Visibilite">
+                        <h:outputText value="#{article.AVisible}" />
+                    </p:column>
+
+
+                </p:dataTable>
 
 
 
-        </h:form>
+
+                <f:facet name="footer">
+
+                    <p:commandButton update=":form:tableArticle" icon="ui-icon-plusthick" value="Ajouter" actionListener="#{TbArticleService.createArticle}" />
+                    <p:commandButton update=":form:articleDetail" icon="ui-icon-search" value="Editer" oncomplete="PF('articleDialog').show()" disabled="#{empty TbArticleService.saveArticle}" />
+                    <p:commandButton update=":form:tableArticle" icon="ui-icon-closethick" value="Supprimer" actionListener="#{TbArticleService.deleteArticle(TbArticleService.setSelectedArticle)}" disabled="#{empty TbArticleService.setSelectedArticle}" />
+
+
+                </f:facet>
 
 
 
-    </h:body>
-</html>
+
+
+
+
+
+
+
+            </h:form>
+        </h:body>
+    </ui:define>
+
+
+</ui:composition>
 

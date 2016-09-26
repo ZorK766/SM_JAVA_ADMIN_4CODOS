@@ -28,23 +28,19 @@
         
         <h:panelGroup id="content" layout="block">
             <p:stack icon="/resources/images/statuts.png" expanded="true">
-                    <p:menuitem value="Statuts" icon="/resources/images/statuts.png" url="statuts.jsf"/>
+                    <p:menuitem value="Statuts" icon="/resources/images/status.png" url="statuts.jsf"/>
+                    <p:menuitem value="Tva" icon="/resources/images/tva.png" url="tva.jsf"/>
+                    <p:menuitem value="Clients" icon="/resources/images/person2.png" url="clients.jsf"/>
+                    <p:menuitem value="Preparateurs" icon="/resources/images/person.png" url="preparateurs.jsf"/>
+                    <p:menuitem value="Commandes" icon="/resources/images/order.png" url="commandes.jsf"/>
+                    <p:menuitem value="Categories" icon="/resources/images/cat.png" url="statuts.jsf"/>
+                    <p:menuitem value="Articles" icon="/resources/images/cart.png" url="articles.jsf"/>
                 </p:stack>
             
             <ui:insert name="content">Main Content</ui:insert>
         </h:panelGroup>
 
-        <div id="footer">
-
-            <span>
-
-                <h1>SpeedyMarket</h1>
-
-                <i>Application d'administration des produits, comptes, commandes...</i>
-
-            </span>
-
-        </div>
+        
 
     </h:body>
 
